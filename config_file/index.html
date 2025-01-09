@@ -1,0 +1,3173 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="smol-k8s-lab config file">
+      
+      
+      
+        <link rel="canonical" href="https://small-hack.github.io/smol-k8s-lab/config_file/">
+      
+      
+        <link rel="prev" href="../tui/confirmation_screen/">
+      
+      
+        <link rel="next" href="../k8s_apps/">
+      
+      
+      <link rel="icon" href="../images/cloud_favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Configuration File - smol-k8s-lab docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="spacechalk" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tui-and-accessibility-configuration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="smol-k8s-lab docs" class="md-header__button md-logo" aria-label="smol-k8s-lab docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            smol-k8s-lab docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Configuration File
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="spacechalk" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/small-hack/smol-k8s-lab" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../installation/" class="md-tabs__link">
+        
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cli/" class="md-tabs__link">
+        
+  
+    
+  
+  CLI
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../tui/create_modify_screens/" class="md-tabs__link">
+          
+  
+    
+  
+  TUI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+    
+  
+  Config File
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../k8s_apps/" class="md-tabs__link">
+          
+  
+    
+  
+  Apps
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../k8s_distros/distros/" class="md-tabs__link">
+          
+  
+    
+  
+  Supported Distros
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../k8s_toolbox/toolbox/" class="md-tabs__link">
+          
+  
+    
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../roadmap/" class="md-tabs__link">
+        
+  
+    
+  
+  RoadMap
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="smol-k8s-lab docs" class="md-nav__button md-logo" aria-label="smol-k8s-lab docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    smol-k8s-lab docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/small-hack/smol-k8s-lab" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TUI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            TUI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tui/create_modify_screens/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create and Modify Clusters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tui/distro_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8s Distros
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tui/apps_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8s Apps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tui/tui_config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tui/help_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Help
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tui/confirmation_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Confirmation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Config File
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Config File
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tui-and-accessibility-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      TUI and Accessibility Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TUI and Accessibility Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#visual-tui-config-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual TUI config options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessibility-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessibility Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessibility Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#text-to-speech" class="md-nav__link">
+    <span class="md-ellipsis">
+      Text to Speech
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminal-bell" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terminal Bell
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run command
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubernetes-distros" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kubernetes distros
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kubernetes distros">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#k3s" class="md-nav__link">
+    <span class="md-ellipsis">
+      k3s
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k3d" class="md-nav__link">
+    <span class="md-ellipsis">
+      k3d
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kind" class="md-nav__link">
+    <span class="md-ellipsis">
+      kind
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#password-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Password Management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Applications
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Applications">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sensitive-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensitive values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backups-and-restores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backups and restores
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backups and restores">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restores
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom Applications
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#globally-available-argo-cd-applicationset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Globally Available Argo CD ApplicationSet
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../k8s_apps/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Apps
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Argo CD
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Argo CD
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/argocd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Argo CD App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/appset-secret-plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appset Secret Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/cert_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cert Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/cnpg_operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CloudNative Postgress Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/core_dns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core DNS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    External Secrets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            External Secrets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/external-secrets-operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    External Secrets Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/bitwarden_eso_provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bitwarden ESO Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_7" id="__nav_6_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Experimental
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_7">
+            <span class="md-nav__icon md-icon"></span>
+            Experimental
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/experimental/cilium/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cilium
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/experimental/infisical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infisical
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/experimental/kepler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kepler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/experimental/kyverno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kyverno
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/experimental/kubevirt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubevirt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/experimental/longhorn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Longhorn
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/experimental/openbao/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Openbao
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/experimental/minio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MinIO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/experimental/postgres_operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zalando Postgress Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/generic_app/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generic App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/generic_device_plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generic Device Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/gotosocial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GoToSocial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/home_assistant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home Assistant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/ingress_nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ingress Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/k8tz/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8tz
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/k8up/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/libretranslate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LibreTranslate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/mastodon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mastodon
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/metallb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MetalLB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/nvidia_device_plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NVIDIA Device Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/netmaker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Netmaker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/nextcloud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nextcloud
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/peertube/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PeerTube
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/prometheus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prometheus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/seaweedfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SeaweedFS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/valkey/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Valkey
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/valkey_cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Valkey Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/vouch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vouch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_apps/zitadel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zitadel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Supported Distros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Supported Distros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_distros/distros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    K3s
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            K3s
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_distros/k3s/k3s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_distros/k3s/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QuickStart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_distros/k3s/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_distros/k3s/sqllite_backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    K3d
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            K3d
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_distros/k3d/k3d/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Kind
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Kind
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_distros/kind/kind/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_distros/kind/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QuickStart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_distros/kind/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_toolbox/toolbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_toolbox/helm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Helm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_toolbox/k9s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K9s
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s_toolbox/kubectl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubectl
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RoadMap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Config File</h1>
+
+<div><p>smol-k8s-lab will walk you through an initial configuration, but you can also edit your configuration file directly in <code>$XDG_CONFIG_DIR/smol-k8s-lab/config.yaml</code> (usually <code>~/.config/smol-k8s-lab/config.yaml</code>) to be your own values.</p>
+<p>You can checkout the full official current <a href="https://github.com/small-hack/smol-k8s-lab/blob/main/smol_k8s_lab/config/default_config.yaml">default <code>config.yaml</code></a>.</p>
+<h2 id="tui-and-accessibility-configuration">TUI and Accessibility Configuration</h2>
+<p>You can checkout more about the TUI in <a href="/tui">our tui config section</a>, but briefly please see the default configuration for in the yaml below:</p>
+<h3 id="visual-tui-config-options">Visual TUI config options</h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">smol_k8s_lab</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Terminal User Interface with clickable buttons.</span>
+<span class="w">  </span><span class="c1"># Useful for learning smol-k8s-lab or verifying your configuration</span>
+<span class="w">  </span><span class="nt">tui</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># if set to true, we'll always launch smol-k8s-lab in interactive mode :)</span>
+<span class="w">    </span><span class="c1"># else you need to pass in --interactive or -i to use the TUI</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="c1"># show bottom footer help bar</span>
+<span class="w">    </span><span class="nt">show_footer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="accessibility-options">Accessibility Options</h3>
+<details class="tip" open="open">
+<summary>Tip</summary>
+<p>If you are using smol-k8s-lab via SSH or on a machine that does not have audio drivers installed, you may experience errors in the TUI related to Alsa not running. You can disable ALL of the text to speech and terminal bell features to make it go away.</p>
+</details>
+<p>Below are all the currently supported accessibility features in the <code>smol-k8s-lab</code> TUI. If you have experience with python and screenreaders or working in the terminal using screen readers generally, please reach out on GitHub via an Issue or Discussion. We'd love your opinions and help on making our interface more accessible. We're also happy to hear more feed back on other accessibility features!</p>
+<h4 id="text-to-speech">Text to Speech</h4>
+<p>These are all the options related to text to speech:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">smol_k8s_lab</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Terminal User Interface with clickable buttons.</span>
+<span class="w">  </span><span class="c1"># Useful for learning smol-k8s-lab or verifying your configuration</span>
+<span class="w">  </span><span class="nt">tui</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># accessibility options for users that benefit from TTS and Bell sounds</span>
+<span class="w">    </span><span class="nt">accessibility</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># options related to text to speech</span>
+<span class="w">      </span><span class="nt">text_to_speech</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># language to speak in. so far only english supported</span>
+<span class="w">        </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">en</span>
+<span class="w">        </span><span class="c1"># use a specific program for text to speech - needs to be a full path</span>
+<span class="w">        </span><span class="nt">speech_program</span><span class="p">:</span><span class="w"> </span><span class="s">''</span>
+<span class="w">        </span><span class="c1"># read aloud the screen title</span>
+<span class="w">        </span><span class="nt">screen_titles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="c1"># read aloud the screen description</span>
+<span class="w">        </span><span class="nt">screen_descriptions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="c1"># read aloud the element id, value, and tooltip each time you switch focus</span>
+<span class="w">        </span><span class="nt">on_focus</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="c1"># press f5 to read the element id and selected row of DataTables</span>
+<span class="w">        </span><span class="nt">on_key_press</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="terminal-bell">Terminal Bell</h4>
+<p>These options use your built in terminal bell:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">smol_k8s_lab</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># Terminal User Interface with clickable buttons.</span>
+<span class="w">  </span><span class="c1"># Useful for learning smol-k8s-lab or verifying your configuration</span>
+<span class="w">  </span><span class="nt">tui</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># accessibility options for users that benefit from TTS and Bell sounds</span>
+<span class="w">    </span><span class="nt">accessibility</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># options related to terminal bell sounds</span>
+<span class="w">      </span><span class="nt">bell</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># ring the built in terminal bell on focus to new elements on the screen</span>
+<span class="w">        </span><span class="nt">on_focus</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="c1"># ring the built in terminal bell when something is wrong</span>
+<span class="w">        </span><span class="nt">on_error</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="run-command">Run command</h2>
+<p><code>run_command</code> is a special section of the config file to run a command after the config and cluster setup phases of smol-k8s-lab. Here's an example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">smol_k8s_lab</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">run_command</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># command to run after smol-k8s-lab tui is done or immediately when running</span>
+<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">k9s --command applications.argoproj.io</span>
+<span class="w">    </span><span class="c1"># tell me which terminal you use if you'd like to use split or tab features</span>
+<span class="w">    </span><span class="nt">terminal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">wezterm</span>
+<span class="w">    </span><span class="c1"># where to run the command, options: same window, new window, new tab,</span>
+<span class="w">    </span><span class="c1"># split left, split right, split top, split bottom</span>
+<span class="w">    </span><span class="c1"># if set to "same window", we just run it in the same window after we're</span>
+<span class="w">    </span><span class="c1"># done the entire smol-k8s-lab cli run</span>
+<span class="w">    </span><span class="nt">window_behavior</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">split right</span>
+</code></pre></div></td></tr></table></div>
+<p>The above will setup the k8s cluster, and then immediately run a command to split the current wezterm window into two panes. On the left will be the log output from smol-k8s-lab. On the right, we will launch k9s and view applications as they spin up.</p>
+<p>If you set <code>smol_k8s_lab.run_command.window_behavior</code> to "same window", then we will not run your command until after smol-k8s-lab is completed.</p>
+<p>We rely on knowing what terminal multiplexer you're using to do splits, new tabs, and new windows. The supported terminal values are <code>wezterm</code> and <code>zellij</code>. If you'd like to see another terminal supported, and the terminal has cli commands or a python library, please feel free to submit a GitHub Issue and we'll try to implement it. If you're savy with python, please also feel free to submit a PR :)</p>
+<h2 id="logging">Logging</h2>
+<p>Logging defaults to <code>info</code> level, but you can you make it more verbose by changing it to <code>debug</code> or less verbose by changing it to <code>warn</code> or <code>error</code>.</p>
+<p>All logging is done directly to your console (stdout) aka standard out, unless you pass in <code>log.filename</code> in the configuration.</p>
+<p>Example logging configuration:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">smol_k8s_lab</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># logging configuration for the smol-k8s-lab CLI</span>
+<span class="w">  </span><span class="nt">log</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># path of file to log to if console logging is NOT desired</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">    </span><span class="c1"># logging level, Options: debug, info, warn, error</span>
+<span class="w">    </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="s">"debug"</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="kubernetes-distros">Kubernetes distros</h2>
+<p>Each supported Kubernetes distro is listed under <code>k8s_distros</code> in config.yaml. You can enable one by setting <code>k8s_distros.{distro}.enabled</code> to <code>true</code>.
+Currently you can only deploy one distro at a time.</p>
+<h3 id="k3s">k3s</h3>
+<p>For k3s, we use a <a href="https://docs.k3s.io/installation/configuration#configuration-file">config file</a> for <a href="https://docs.k3s.io/cli/server">all the options</a> that get passed to the k3s install script. We define them under <code>k8s_distros.k3s.k3s_yaml</code> in the <code>smol-k8s-lab</code> config file.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># NOTE: only kind is available on macOS at this time</span>
+<span class="nt">k8s_distros</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">k3s</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># set to true to enable deploying a Kubernetes cluster using k3s</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="c1"># if k8s_distro set to k3s/k3d, you can add an array of extra arguments to pass</span>
+<span class="w">    </span><span class="c1"># to the k3s install script as a k3s.yaml file. If you enable cilium, we</span>
+<span class="w">    </span><span class="c1"># automatically pass in flannel-backend: none and disable-network-policy: true</span>
+<span class="w">    </span><span class="nt">k3s_yaml</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># if you enable MetalLB, we automatically add servicelb to the disable list</span>
+<span class="w">      </span><span class="c1"># enables encryption at rest for Kubernetes secrets</span>
+<span class="w">      </span><span class="nt">secrets-encryption</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="c1"># disables traefik so we can enable ingress-nginx, remove if you're using traefik</span>
+<span class="w">      </span><span class="nt">disable</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"traefik"</span>
+<span class="w">      </span><span class="nt">node-label</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"ingress-ready=true"</span>
+<span class="w">      </span><span class="nt">kubelet-arg</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"max-pods=150"</span>
+<span class="w">    </span><span class="c1"># list of nodes to SSH to and join to cluster</span>
+<span class="w">    </span><span class="c1"># if using single node, set to nodes: {}</span>
+<span class="w">    </span><span class="nt">nodes</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># name can be a hostname or ip address</span>
+<span class="w">      </span><span class="nt">serverfriend1.lan</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># must be node type of "worker" or "control_plane"</span>
+<span class="w">        </span><span class="nt">node_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class="w">        </span><span class="c1"># change this if not using default port 22</span>
+<span class="w">        </span><span class="nt">ssh_port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22</span>
+<span class="w">        </span><span class="c1"># change ssh_key to the name of a local private key to use if id_rsa is not preferred</span>
+<span class="w">        </span><span class="nt">ssh_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">id_rsa</span>
+<span class="w">        </span><span class="c1"># labels are optional, but may be useful for pod node affinity</span>
+<span class="w">        </span><span class="nt">node_labels</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iot=true</span>
+<span class="w">        </span><span class="c1"># taints are optional, but may be useful for pod tolerations</span>
+<span class="w">        </span><span class="nt">node_taints</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iot=true:NoSchedule</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="k3d">k3d</h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">k8s_distros</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">k3d</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># set to true to enable deploying a Kubernetes cluster using k3d</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="c1"># if k8s_distro set to k3s/k3d, you can add an array of extra arguments to pass</span>
+<span class="w">    </span><span class="c1"># to the k3s install script as a k3s.yaml file. If you enable cilium, we</span>
+<span class="w">    </span><span class="c1"># automatically pass in flannel-backend: none and disable-network-policy: true</span>
+<span class="w">    </span><span class="nt">k3s_yaml</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># if you enable metallb, we automatically add servicelb to the disable list</span>
+<span class="w">      </span><span class="c1"># enables encryption at rest for Kubernetes secrets</span>
+<span class="w">      </span><span class="nt">secrets-encryption</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="c1"># disables traefik so we can enable ingress-nginx, remove if you're using traefik</span>
+<span class="w">      </span><span class="nt">disable</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"traefik"</span>
+<span class="w">      </span><span class="nt">kubelet-arg</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"max-pods=150"</span>
+<span class="w">      </span><span class="nt">node-label</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"ingress-ready=true"</span>
+<span class="w">    </span><span class="c1"># how many dockerized k3s nodes to deploy</span>
+<span class="w">    </span><span class="nt">nodes</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">control_plane</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="kind">kind</h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">k8s_distros</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">kind</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># set to true to enable deploying a Kubernetes cluster using kind</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="c1"># change the kubelet config for this node in k3s, feel free to add more values</span>
+<span class="w">    </span><span class="nt">kubelet_extra_args</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># all these options are defaults</span>
+<span class="w">      </span><span class="nt">node-labels</span><span class="p">:</span><span class="w"> </span><span class="s">"ingress-ready=true"</span>
+<span class="w">      </span><span class="nt">max-pods</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">110</span>
+<span class="w">      </span><span class="nt">pods-per-core</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="nt">resolv-conf</span><span class="p">:</span><span class="w"> </span><span class="s">"/etc/resolv.conf"</span>
+<span class="w">    </span><span class="nt">networking_args</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># all these options are defaults</span>
+<span class="w">      </span><span class="nt">ipFamily</span><span class="p">:</span><span class="w"> </span><span class="s">"ipv4"</span>
+<span class="w">      </span><span class="nt">disableDefaultCNI</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">False</span>
+<span class="w">      </span><span class="nt">apiServerAddress</span><span class="p">:</span><span class="w"> </span><span class="s">"127.0.0.1"</span>
+<span class="w">      </span><span class="nt">podSubnet</span><span class="p">:</span><span class="w"> </span><span class="s">"10.244.0.0/16"</span>
+<span class="w">    </span><span class="c1"># how many dockerized kind nodes to deploy</span>
+<span class="w">    </span><span class="nt">nodes</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">control_plane</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">workers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="password-management">Password Management</h2>
+<p>We support using Bitwarden to store and manage your Kubernetes secrets. Enable this feature using <code>smol-k8s-lab.local_password_manager.enabled</code> set to <code>true</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">smol_k8s_lab</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># store your password and tokens directly in your local password manager</span>
+<span class="w">  </span><span class="nt">local_password_manager</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="c1"># enable the use of Bitwarden as your password manager.</span>
+<span class="w">    </span><span class="c1"># To use Bitwarden, you must export the following environment variables:</span>
+<span class="w">    </span><span class="c1"># BW_PASSWORD, BW_CLIENTID, BW_CLIENTSECRET, BW_SESSION</span>
+<span class="w">    </span><span class="c1"># If you're missing any of these, smol-k8s-lab will prompt for them</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bitwarden</span>
+<span class="w">    </span><span class="c1"># if existing items are found in your password manager, do this:</span>
+<span class="w">    </span><span class="nt">duplicate_strategy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ask</span>
+</code></pre></div></td></tr></table></div>
+<p>For <code>smol_k8s_lab.local_password_manager.duplicate_strategy</code>, you can choose one of the following strategies:</p>
+<table>
+<thead>
+<tr>
+<th>strategy</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ask</td>
+<td>(default in tui mode) display a dialog window asking you how to proceed</td>
+</tr>
+<tr>
+<td>edit</td>
+<td>edit item, if there's one item found, ask if multiple found</td>
+</tr>
+<tr>
+<td>duplicate</td>
+<td>create an additional item with the same name</td>
+</tr>
+<tr>
+<td>no_action</td>
+<td>don't do anything, just continue on with the script</td>
+</tr>
+</tbody>
+</table>
+<h2 id="applications">Applications</h2>
+<p>All applications are under the <code>apps</code> parameter in the <code>config.yaml</code>. For the default installable applications, please check out the <a href="/k8s_apps/argocd">Default Apps</a> tab. You can even add your own.</p>
+<h3 id="sensitive-values">Sensitive values</h3>
+<p>Since <code>v5.0.0</code>, smol-k8s-lab now supports getting your sensitive values from arbitrary environment variables or bitwarden. We support using sensitive values for any value under the following:</p>
+<ul>
+<li><code>apps.APP.init.values</code></li>
+<li><code>apps.APP.backups.s3</code></li>
+<li><code>apps.APP.backups.restic_repo_password</code></li>
+</ul>
+<p>To use a value from an environment variable try the following:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">nextcloud</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">backups</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># this value comes from an environment variable</span>
+<span class="w">        </span><span class="nt">secret_access_key</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NC_S3_BACKUP_SECRET_KEY</span>
+</code></pre></div></td></tr></table></div>
+<p>If we see <code>value_from</code> under any field in init or backups, we will attempt to get the value either from your environment variables or bitwarden.</p>
+<h3 id="backups-and-restores">Backups and restores</h3>
+<p>Apps with an init section, which include apps such as nextcloud, mastodon, matrix, and home assistant, can include a backups and restores sections.</p>
+<h4 id="backups">Backups</h4>
+<p>For each app that supports backups, you can set:</p>
+<ul>
+<li>
+<p>PVC schedule, which is the cron syntax schedule used for running backups of all k8up annotated PVCs in the app's namespace.</p>
+</li>
+<li>
+<p>postgres schedule, which is the cron syntax schedule used for running backups of a cloud native postgresql cluster. NOTE: the cron sytax for this field includes a field for seconds.</p>
+</li>
+<li>
+<p>remote s3 configuration, which is a series of fields for the remote backup endpoint, bucket, region, secret_access_key, and access_key_id.</p>
+</li>
+<li>
+<p>restic repo password, which is a password for encrypting your remote backups bucket</p>
+</li>
+</ul>
+<p>Here's an example backup section for nextcloud in <code>config.yaml</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">nextcloud</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">backups</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># cronjob syntax schedule to run nextcloud pvc backups</span>
+<span class="w">      </span><span class="nt">pvc_schedule</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10 0 * * *</span>
+<span class="w">      </span><span class="c1"># cronjob syntax (with SECONDS field) for nextcloud postgres backups</span>
+<span class="w">      </span><span class="c1"># must happen at least 10 minutes before pvc backups, to avoid corruption</span>
+<span class="w">      </span><span class="c1"># due to missing files. This is because the cnpg backup shows as completed</span>
+<span class="w">      </span><span class="c1"># before it actually is, due to the wal archive it lists as it's end not</span>
+<span class="w">      </span><span class="c1"># being in the backup yet</span>
+<span class="w">      </span><span class="nt">postgres_schedule</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0 0 0 * * *</span>
+<span class="w">      </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># these are for pushing remote backups of your local s3 storage, for speed and cost optimization</span>
+<span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3.eu-central-003.backblazeb2.com</span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-remote-s3-bucket</span>
+<span class="w">        </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-central-003</span>
+<span class="w">        </span><span class="c1"># comes from an environment variable</span>
+<span class="w">        </span><span class="nt">secret_access_key</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NC_S3_BACKUP_SECRET_KEY</span>
+<span class="w">        </span><span class="c1"># comes from an environment variable</span>
+<span class="w">        </span><span class="nt">access_key_id</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NC_S3_BACKUP_ACCESS_ID</span>
+<span class="w">      </span><span class="c1"># comes from an environment variable</span>
+<span class="w">      </span><span class="nt">restic_repo_password</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NC_RESTIC_REPO_PASSWORD</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="restores">Restores</h4>
+<p>To restore from a backup, you'll need to configure whether you'd like to restore PVCs and the CNPG postgresql database or just the PVC.</p>
+<p>By default, we always use the latest restic snapshot ID to restore your cluster. If you'd like to use different snapshot IDs, please change the word "latest" for each PVC.</p>
+<p>example YAML:
+</p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">nextcloud</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># initialize the app by setting up new k8s secrets and/or bitwarden items</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="c1"># restore section</span>
+<span class="w">      </span><span class="nt">restore</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># set to false to disable restoring</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="c1"># set this to false to only restore the PVCs but not the postgres cluster</span>
+<span class="w">        </span><span class="nt">cnpg_restore</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">restic_snapshot_ids</span><span class="p">:</span>
+<span class="w">          </span><span class="c1"># each of these seaweedfs values also contains your postgresql backups</span>
+<span class="w">          </span><span class="nt">seaweedfs_volume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">          </span><span class="nt">seaweedfs_filer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">          </span><span class="c1"># this is just the nextcloud files pvc</span>
+<span class="w">          </span><span class="nt">nextcloud_files</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="custom-applications">Custom Applications</h3>
+<p>Here's an example application:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># name of the application to create with Argo CD</span>
+<span class="w">  </span><span class="nt">my_home_assistant</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># if enabled is set to false, we will skip this app</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">argo</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># secrets keys to make available to Argo CD ApplicationSets</span>
+<span class="w">      </span><span class="nt">secret_keys</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># FQDN to use for home assistant</span>
+<span class="w">        </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s">"ha.test.com"</span>
+<span class="w">      </span><span class="c1"># git repo to install the Argo CD app from</span>
+<span class="w">      </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="s">"https://github.com/my-user/argocd-apps"</span>
+<span class="w">      </span><span class="c1"># path in the argo repo to point to. Trailing slash very important!</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">"home_assistant/"</span>
+<span class="w">      </span><span class="c1"># git branch or tag to point at in the argo repo above</span>
+<span class="w">      </span><span class="nt">revision</span><span class="p">:</span><span class="w"> </span><span class="s">"main"</span>
+<span class="w">      </span><span class="c1"># name of cluster to deploy this app to</span>
+<span class="w">      </span><span class="nt">cluster</span><span class="p">:</span><span class="w"> </span><span class="s">"in-cluster"</span>
+<span class="w">      </span><span class="c1"># Kubernetes namespace to install the k8s app in</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s">"home-assistant"</span>
+<span class="w">      </span><span class="c1"># recurse directories in the provided git repo</span>
+<span class="w">      </span><span class="nt">directory_recursion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">project</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-home-assistant</span>
+<span class="w">        </span><span class="c1"># source git repos for Argo CD App Project (in addition to argo.repo)</span>
+<span class="w">        </span><span class="nt">source_repos</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry-1.docker.io</span>
+<span class="w">        </span><span class="nt">destination</span><span class="p">:</span>
+<span class="w">          </span><span class="c1"># automatically includes the app's namespace and argocd's namespace</span>
+<span class="w">          </span><span class="nt">namespaces</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prometheus</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">home-assistant</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only applications with the <code>init</code> field in the <a href="https://github.com/small-hack/smol-k8s-lab/blob/main/smol_k8s_lab/config/default_config.yaml"><code>default_config.yaml</code></a> can be initialized by <code>smol-k8s-lab</code>, therefore, you cannot use the <code>apps.{app}.init</code> parameter for custom apps. You can still use the appset secret plugin for Argo CD though :) If you'd like initialization supported by smol-k8s-lab, please feel free to open a feature request in the GitHub Issues.</p>
+</div>
+<h3 id="globally-available-argo-cd-applicationset">Globally Available Argo CD ApplicationSet</h3>
+<p>You can also use the <a href="">appset secret plugin</a> to store parameters that are available to <em>all</em> Argo CD ApplicationSets. You can configure these via the configuration file like this:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps_global_config</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># setting this changes all the below domains to use the following cluster_issuer</span>
+<span class="w">  </span><span class="c1"># change to letsencrypt-prod when you're ready to go live with your infra</span>
+<span class="w">  </span><span class="nt">cluster_issuer</span><span class="p">:</span><span class="w"> </span><span class="s">"letsencrypt-staging"</span>
+<span class="w">  </span><span class="c1"># change to your tz: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List</span>
+<span class="w">  </span><span class="nt">time_zone</span><span class="p">:</span><span class="w"> </span><span class="s">"Europe/Amsterdam"</span>
+<span class="w">  </span><span class="c1"># always deploy external secrets. *Must be a string of "none" (don't use external secrets) or "bitwarden" to use bitwarden for external secrets*</span>
+<span class="w">  </span><span class="nt">external_secrets</span><span class="p">:</span><span class="w"> </span><span class="s">"bitwarden"</span>
+</code></pre></div></td></tr></table></div></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "tables", "toc.integrate", "content.code.copy"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

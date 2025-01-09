@@ -1,0 +1,379 @@
+:root {
+    /* set global font */
+    --md-text-font: "Firacode";
+    --md-code-font: "Mononoki";
+
+    --gloabl-padding: .5%;
+    --header-padding: 0;
+    --list-padding: .5%;
+    --list-decorator: "> ";
+    --margins: 0%;
+    
+    --letter-spacing-f1: .5px;
+    --letter-spacing-f2: 1px;
+    
+    --font-size: 18px;
+    --line-height: 20px;
+    
+    --title-line-height:  1;
+    --elipsis-multiplier: 1;
+    --header1-multiplier: 1.2;
+    --header2-multiplier: 1.1;
+    --header3-multiplier: 1;
+    --header4-multiplier: 1;
+    --link-multiplier: 1.0;
+    --emp-multiplier:  1.0;
+    --blockquote-multiplier: 1;
+    --list-multiplier: 1;
+    
+    --font-weight-h1:   600;
+    --font-weight-h2:   600;
+    --font-weight-h3:   500;
+    --font-weight-h4:   500;
+    --font-weight-link: 400;
+    --font-weight-text: 400;
+    --font-weight-emp:  400;
+    --font-weight-list: 400;
+    
+    --shadow-x-max: .3;
+    --shadow-y-max: 1;
+    --shadow-radius: 1px;
+    --brightness: 90%;
+    
+    --text-y: -2px;
+    --text-x: -5px;
+    --text-z: -0px;
+}
+
+[data-md-color-scheme="spacechalk"]  {
+    
+    --bg: #232336;
+    --header: #23213b;
+    --header-contrast: rgb(58,58,58);
+    --code-bg: #323232;
+    --primary: rgb(255,175,249);
+    --pop: rgb(122,162,247);
+    
+    --shadow-x: 1px;
+    --shadow-x-max: .3;
+    --shadow-y: 1px;
+    --shadow-y-max: 1;
+    --shadow-radius: 2px;
+    --shadow: Black;
+    
+    
+    --text: #c0caf5;
+    --border-radius: 10px;
+    --border-style: solid;
+    
+    /* search bar cursor and active text */
+    --md-default-fg-color: var(--text);
+    /* h1 headers and >'s, link highlights, TOC nav highlight, hover1 */
+    --md-default-fg-color--light: var(--pop);
+    /* scroll bars and markers un-hovered */
+    --md-default-fg-color--lighter: var(--pop);
+    /* horizontal lines and icons unhovered, search header background */
+    --md-default-fg-color--lightest: var(--text);
+    /* HTML page Background color */
+    --md-default-bg-color: var(--bg);
+    /*?*/
+    --md-default-bg-color--light: rgba(49, 218, 7, .8);
+    /*?*/
+    --md-default-bg-color--lighter: rgb(253, 99, 10);
+    /*?*/
+    --md-default-bg-color--lightest: rgb(235, 14, 243);
+    /*header background*/
+    --md-primary-fg-color: var(--header);
+    /*?*/
+    --md-primary-fg-color--light: var(--header);
+    /*?*/
+    --md-primary-fg-color--dark: var(--header);
+    /* header text and icon color */
+    --md-primary-bg-color: #7dcfff;
+    /* search bar initial text */
+    --md-primary-bg-color--light: var(--header-contrast);
+    /* Hover color2 + search syntax highlight */
+    --md-accent-fg-color: var(--pop);
+    /* search result highlight */
+    --md-accent-fg-color--transparent: var(--primary);
+    /*?*/
+    --md-accent-bg-color: rgb(85, 95, 137);
+    /*?*/
+    --md-accent-bg-color--light: rgba(235, 14, 243, 1);
+    /* default text color in a code block */
+    --md-code-fg-color: #bdd8ff;
+    --md-code-bg-color: var(--code-bg);
+    --md-code-hl-color: rgb(207, 62, 200);
+    --md-code-hl-number-color: rgb(252, 17, 173);
+    --md-code-hl-special-color: red;
+    --md-code-hl-function-color: #6Df2E5;
+    --md-code-hl-constant-color: rgb(89, 214, 245);
+    --md-code-hl-keyword-color: #f7fb53;
+    --md-code-hl-string-color: #C1FF87;
+    --md-code-hl-name-color: red;
+    --md-code-hl-operator-color: #fdcd36;
+    --md-code-hl-punctuation-color: #f289f9;
+    --md-code-hl-comment-color: #7aa2f7;
+    --md-code-hl-generic-color: red;
+    --md-code-hl-variable-color: #5cc9fd;
+    /* Main Font Color */
+    --md-typeset-color: var(--text);
+    --md-typeset-a-color: var(--pop);
+    /*?*/
+    --md-typeset-mark-color: rgba(212,2,212,1);
+    /*?*/
+    --md-typeset-del-color: rgba(255,25,255,1);
+    /*?*/
+    --md-typeset-ins-color: rgba(255,25,255,1);
+    /* this is for keyboard keys - the color of the text */
+    --md-typeset-kbd-color: #448;
+    /* this is for keyboard keys - the color of the accent around the text */
+    --md-typeset-kbd-accent-color: rgb(86,95,137);
+    /* this is for keyboard keys - the buttom part of the keyboard button */
+    --md-typeset-kbd-border-color: rgb(86,95,137);
+    /* color for table borders */
+    --md-typeset-table-color: rgb(86,95,137);
+    /*?*/
+    --md-admonition-fg-color: var(--text);
+    /*?*/
+    --md-admonition-bg-color: #323232;
+}
+
+a:active, a:link {
+    color: #a3a8f8;
+    font-size: calc(var(--link-multiplier) * var(--font-size));
+    line-height: var(--title-line-height);
+ }
+
+a:hover {
+    color: var(--text);
+    filter: drop-shadow(var(--shadow-x) var(--shadow-y) var(--shadow-radius) var(--pop));
+ }
+
+strong, emp {
+    color: var(--text);
+    font-size: calc(var(--emp-multiplier) * var(--font-size));
+    line-height: var(--title-line-height);
+    font-weight: var(--font-weight-emp)!important;
+}
+
+/* top links in the header */
+.md-tabs__link {
+    background: var(--transparent);
+    font-size: calc(var(--link-multiplier) * var(--font-size));
+    font-weight: var(--font-weight-link);
+    line-height: var(--title-line-height);
+    color: #aea8f8!important;
+}
+
+.md-header, .md-header--lifted{
+    background-color: var(--header);
+}
+
+/* the logo on the left of the title */
+.md-header__button md-logo {
+    color: red;
+}
+
+/* for the site title next to the logo */
+.md-header__topic .md-ellipsis {
+    color: #5cc9fd;
+}
+
+/* TOC nav links on the left */
+.md-nav__link, a.md-button:active {
+    color: #a3a8f8;
+    font-weight: var(--font-weight-text);
+}
+
+
+/* nav title in the collapsible left hand menu when screen is small */
+.md-nav__title {
+    background: var(--bg)!important;
+    color: #7aa2f7!important;
+    padding-left: 5%!important;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    font-family: var(--md-code-font);
+}
+
+.md-nav__list, .md-nav, .md-nav--primary, .md-nav--lifted, .md-nav--integrated {
+    background: var(--bg)!important;
+    padding: var(--global-padding);
+}
+
+.highlight {
+    background: rgba(0,0,0,1);
+}
+
+.md-ellipsis {
+    font-size: calc(var(--elipsis-multiplier) * var(--font-size));
+    font-weight: var(--font-weight-link);
+}
+
+.md-nav__link--active {
+    color: var(--text);
+}
+
+h1, h2, h3, h4 {
+    line-height: var(--title-line-height)!important;
+    color: #7aa2f7;
+    font-family: var(--md-code-font)!important;
+}
+
+h1 {
+	font-size: calc(var(--header1-multiplier) * var(--font-size));
+	font-weight: var(--font-weight-h1)!important;
+}
+
+h2 {
+    font-size: calc(var(--header2-multiplier) * var(--font-size));
+    font-weight: var(--font-weight-h2)!important;
+}
+
+h3 {
+    font-size: calc(var(--header3-multiplier) * var(--font-size));
+    font-weight: var(--font-weight-h3)!important;
+}
+
+h4 {
+    font-size: calc(var(--header4-multiplier) * var(--font-size));
+    font-weight: var(--font-weight-h4)!important;
+}
+
+h5 {
+    font-size: calc(var(--header4-multiplier) * var(--font-size));
+    font-weight: var(--font-weight-h4)!important;
+}
+
+ol, li {
+    font-size: calc(var(--list-multiplier) * var(--font-size));
+    font-weight: var(--font-weight-list)!important;
+}
+
+strong {
+    font-size: calc(var(--list-multiplier) * var(--font-size));
+    font-weight: var(--font-weight-list)!important;
+    list-style: none;
+}
+
+blockquote {
+    color: var(--text);
+    font-size: calc(var(--font-size) * var(--blockquote-multiplier));
+    font-weight: var(--font-weight-text)!important;
+}
+
+.wrap {
+    width: 200px;
+    margin: 0 auto;
+    background: white;
+}
+
+.md-grid {
+    max-width: 80vw;
+}
+
+.md-button {
+    filter: drop-shadow(var(--shadow-x) var(--shadow-y) var(--shadow-radius) var(--header));
+}
+
+.md-icon {
+    color: var(--pop)!important;
+}
+
+.md-footer {
+    background: var(--header)!important;
+}
+
+.md-typeset .admonition.note {
+    border-color: #3d59a1;
+    background-color: var(--header);
+}
+
+.md-typeset blockquote {
+    border-left: .2rem solid var(--md-default-fg-color--lighter);
+    color: var(--text);
+    padding-left: .6rem;
+}
+
+body {
+    padding: var(--global-padding);
+    font-size: var(--font-size);
+    margin-top: var(--margin);
+    margin-bottom: var(--margin);
+    margin-right: var(--margin);
+    margin-left: var(--margin);
+    margin: 0;
+    box-shadow: inset 0 0 100% black;
+    height: 100vh;
+    width: 100%;
+    z-index: -100;
+}
+
+p {
+    font-size: var(--font-size)!important;
+    text-indent: 0%;
+    line-height: var(--line-height);
+    letter-spacing: var(--letter-spacing-f1);
+    color: var(--text);
+    font-weight: var(--font-weight-text)!important;
+ }
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    font-family: var(--md-code-font);
+    color: var(--header-contrast);
+    z-index: 100;
+    margin-top: auto; 
+    filter: drop-shadow(2px 2px 5px rgb(0 0 0 / 0.8));
+    border-radius: var(--border-radius);
+    background-color: var(--card-bg);
+ }
+
+.md-typeset details{
+    padding-left: 1%;
+    padding-right: 1%;
+    overflow: hidden;
+    border-left: .1rem solid #448aff;
+    border-right: .1rem solid #448aff;
+    border-bottom: .1rem solid #448aff;
+}
+
+.md-typeset .example > summary::before {
+    background-color: var(--header-contrast);
+    padding: var(--global-padding);
+}
+
+.md-typeset .example > summary {
+    background-color: var(--header);
+    border-color: var(--header);
+    color: var(--header-contrast);
+}
+
+.md-typeset details.example {
+    border-color: var(--header);
+}
+
+.md-typeset details{
+    filter: drop-shadow(2px 2px 5px rgb(0 0 0 / 0.8));
+}
+
+.md-footer-meta {
+    display: none;
+	
+}
+
+.code, .lineos, .highlighttable {
+    font-size: var(--font-size)!important;
+}
+
+.md-typeset__table table:not([class]) td,
+.md-typeset__table table:not([class]) th {
+    padding: 9px;
+}
+
+.md-typeset__table th {
+    color: #448aff;
+}

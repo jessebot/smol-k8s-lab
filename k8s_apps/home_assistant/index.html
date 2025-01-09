@@ -1,0 +1,2922 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://small-hack.github.io/smol-k8s-lab/k8s_apps/home_assistant/">
+      
+      
+        <link rel="prev" href="../gotosocial/">
+      
+      
+        <link rel="next" href="../ingress_nginx/">
+      
+      
+      <link rel="icon" href="../../images/cloud_favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Home Assistant - smol-k8s-lab docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="spacechalk" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#secret-keys" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="smol-k8s-lab docs" class="md-header__button md-logo" aria-label="smol-k8s-lab docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            smol-k8s-lab docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home Assistant
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="spacechalk" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/small-hack/smol-k8s-lab" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../installation/" class="md-tabs__link">
+        
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../cli/" class="md-tabs__link">
+        
+  
+    
+  
+  CLI
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tui/create_modify_screens/" class="md-tabs__link">
+          
+  
+    
+  
+  TUI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../config_file/" class="md-tabs__link">
+        
+  
+    
+  
+  Config File
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  Apps
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../k8s_distros/distros/" class="md-tabs__link">
+          
+  
+    
+  
+  Supported Distros
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../k8s_toolbox/toolbox/" class="md-tabs__link">
+          
+  
+    
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../roadmap/" class="md-tabs__link">
+        
+  
+    
+  
+  RoadMap
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="smol-k8s-lab docs" class="md-nav__button md-logo" aria-label="smol-k8s-lab docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    smol-k8s-lab docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/small-hack/smol-k8s-lab" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TUI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            TUI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/create_modify_screens/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create and Modify Clusters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/distro_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8s Distros
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/apps_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8s Apps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/tui_config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/help_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Help
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/confirmation_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Confirmation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config_file/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config File
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Apps
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Argo CD
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Argo CD
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../argocd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Argo CD App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appset-secret-plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appset Secret Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cert_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cert Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnpg_operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CloudNative Postgress Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core_dns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core DNS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    External Secrets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            External Secrets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-secrets-operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    External Secrets Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bitwarden_eso_provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bitwarden ESO Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_7" id="__nav_6_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Experimental
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_7">
+            <span class="md-nav__icon md-icon"></span>
+            Experimental
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/cilium/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cilium
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/infisical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infisical
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/kepler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kepler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/kyverno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kyverno
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/kubevirt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubevirt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/longhorn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Longhorn
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/openbao/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Openbao
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/minio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MinIO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/postgres_operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zalando Postgress Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generic_app/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generic App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generic_device_plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generic Device Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gotosocial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GoToSocial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Home Assistant
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Home Assistant
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#secret-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Secret Keys
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sensitive-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensitive Values
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sensitive Values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sensitive-values-before-v500" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensitive values before v5.0.0
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backups
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restores
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-configs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example configs
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example configs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-tolerations-and-node-affinity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using tolerations and node affinity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#without-tolerations-and-node-affinity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Without tolerations and node affinity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ingress_nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ingress Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8tz/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8tz
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8up/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../libretranslate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LibreTranslate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mastodon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mastodon
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metallb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MetalLB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nvidia_device_plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NVIDIA Device Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../netmaker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Netmaker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nextcloud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nextcloud
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../peertube/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PeerTube
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prometheus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prometheus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seaweedfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SeaweedFS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../valkey/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Valkey
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../valkey_cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Valkey Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vouch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vouch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zitadel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zitadel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Supported Distros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Supported Distros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/distros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    K3s
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            K3s
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/k3s/k3s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/k3s/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QuickStart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/k3s/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/k3s/sqllite_backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    K3d
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            K3d
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/k3d/k3d/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Kind
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Kind
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/kind/kind/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/kind/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QuickStart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/kind/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_toolbox/toolbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_toolbox/helm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Helm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_toolbox/k9s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K9s
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_toolbox/kubectl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubectl
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RoadMap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Home Assistant</h1>
+
+<div><p><a href="https://www.home-assistant.io/">Home Assistant</a> is an open source IoT management solution. We deploy a <a href="https://github.com/small-hack/home-assistant-chart/">small-hack maintained helm chart</a> by default, which allows us to:</p>
+<ul>
+<li>specify a default <code>configuration.yaml</code></li>
+<li>create an initial user to disable public registration</li>
+</ul>
+<p>When deployed via Argo CD using <code>smol-k8s-lab</code>, we create an app of apps like this:</p>
+<p><a href="../../assets/images/screenshots/home-assistant.png">
+<img src="../../assets/images/screenshots/home-assistant.png" alt="screenshot of the home-assistant-app in Argo CD showing a tree featuring home assistant themes config map, home assistant appset, home assistant bitwarden external secrets operator appset, and home assistant PVC appset.">
+</a></p>
+<details>
+  <summary>Home Assistant Argo CD helm chart app</summary>
+
+  <a href="../../assets/images/screenshots/home-assistant-helm.png">
+    <img src="../../assets/images/screenshots/home-assistant-helm.png" alt="screenshot of the home-assistant-app in Argo CD showing a tree featuring a configmap, service, service account, deployment, and ingress resource all called home-assistant.">
+  </a>
+
+</details>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You'll need to enable the <a href="/k8s_apps/generic-device-plugin.md">Generic Device Plugin</a> as a prereq in order to use USB devices with home assistant.</p>
+</div>
+<h3 id="secret-keys">Secret Keys</h3>
+<p>The main variables you need to worry about when setting up home assistant is your <code>hostname</code>. The rest are the same values you'd need for a <a href="https://www.home-assistant.io/integrations/homeassistant/#configuration-variables">default home assistant <code>configuration.yaml</code></a>:</p>
+<ul>
+<li>name</li>
+<li>country</li>
+<li>currency</li>
+<li>unit_system</li>
+<li>temperature_unit</li>
+<li>latitude</li>
+<li>longitude</li>
+<li>elevation</li>
+</ul>
+<h3 id="sensitive-values">Sensitive Values</h3>
+<p>Sensitive values can be provided via environment variables using a <code>value_from</code> map on any value under <code>init.values</code> or <code>backups</code>. Example of providing the SMTP password:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">home_assistant</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">password</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HA_PASSWORD</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="sensitive-values-before-v500">Sensitive values before <code>v5.0.0</code></h4>
+<p><code>smol-k8s-lab</code> did not originally support the <code>value_from</code> map. If you're using a version <em>before <code>v5.0.0</code></em>, to avoid having to provide sensitive values every time you run <code>smol-k8s-lab</code> with home assistant enabled, set up the following environment variables:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># this is for the admin user password</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">HOME_ASSISTANT_PASSWORD</span><span class="o">=</span><span class="s2">"mysupersecretpassword"</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="backups">Backups</h2>
+<p>Backups are a new feature in <code>v5.0.0</code> that enable backing up your cluster via restic to a configurable remote S3 bucket. If you have <code>init.enabled</code> set to <code>true</code> and you're using our pre-configured <code>argo.repo</code>, we support both instant backups, and scheduled backups.</p>
+<p>To use the backups feature, you'll need to configure the values below.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">home_assistant</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">backups</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># cronjob syntax schedule to run home assistant pvc backups</span>
+<span class="w">      </span><span class="nt">pvc_schedule</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45 23 * * *</span>
+<span class="w">      </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># these are for pushing remote backups of your local s3 storage, for speed and cost optimization</span>
+<span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3.eu-central-003.backblazeb2.com</span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-home-assistant-bucket</span>
+<span class="w">        </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-central-003</span>
+<span class="w">        </span><span class="nt">secret_access_key</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_S3_BACKUP_SECRET_KEY</span>
+<span class="w">        </span><span class="nt">access_key_id</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_S3_BACKUP_ACCESS_ID</span>
+<span class="w">      </span><span class="nt">restic_repo_password</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_RESTIC_REPO_PASSWORD</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="restores">Restores</h2>
+<p>Restores are a new feature in <code>v5.0.0</code> that enable restoring your PVCs via restic from a configurable remote S3 bucket. If you have <code>init.enabled</code> set to <code>true</code> and you're using our pre-configured <code>argo.repo</code>, we support restoring your PVC. A restore is a kind of initialization process, so it lives under the <code>init</code> section of the config for your application, in this case, home-assistant. Here's an example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">home-assistant</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">restore</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># set this to false to disable restore</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">restic_snapshot_ids</span><span class="p">:</span>
+<span class="w">          </span><span class="c1"># defaults to latest, but can be changed to any restic snapshot ID</span>
+<span class="w">          </span><span class="nt">home_assistant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="example-configs">Example configs</h2>
+<h3 id="using-tolerations-and-node-affinity">Using tolerations and node affinity</h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">home-assistant</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">[link=https://home-assistant.io]Home Assistant[/link] is a home IOT management solution.</span>
+
+<span class="w">      </span><span class="no">By default, we assume you want to use node affinity and tolerations to keep home assistant pods on certain nodes and keep other pods off said nodes. If you don't want to use either of these features but still want to use the small-hack/argocd-apps repo, first change the argo path to /home-assistant/ and then remove the 'toleration_' and 'affinity' secret_keys from the yaml file under apps.home_assistant.description.</span>
+
+<span class="w">      </span><span class="no">[b]NOTE[/b]: If you want to pass in a USB device, you will need the generic device plugin (which is available as a default Argo CD app via smol-k8s-lab 💙)</span>
+
+<span class="w">      </span><span class="no">This app takes one sensitive value, password for the initial owner user. You can also pass it in as an enviornment variable called $HOME_ASSISTANT_PASSWORD.</span>
+<span class="w">    </span><span class="c1"># Initialization of the app through smol-k8s-lab</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># enable the creation of an initial owner user</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">restore</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">restic_snapshot_ids</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">home_assistant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">      </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># -- owner user's name</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"admin"</span>
+<span class="w">        </span><span class="c1"># -- owner user's username</span>
+<span class="w">        </span><span class="nt">user_name</span><span class="p">:</span><span class="w"> </span><span class="s">"admin"</span>
+<span class="w">        </span><span class="c1"># -- owner user's language, default is english</span>
+<span class="w">        </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="s">"en"</span>
+<span class="w">        </span><span class="nt">password</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_PASSWORD</span>
+<span class="w">    </span><span class="nt">backups</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># cronjob syntax schedule to run home assistant pvc backups</span>
+<span class="w">      </span><span class="nt">pvc_schedule</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45 23 * * *</span>
+<span class="w">      </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># these are for pushing remote backups of your local s3 storage, for speed and cost optimization</span>
+<span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3.eu-central-003.backblazeb2.com</span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-home-assistant-bucket</span>
+<span class="w">        </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-central-003</span>
+<span class="w">        </span><span class="nt">secret_access_key</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_S3_BACKUP_SECRET_KEY</span>
+<span class="w">        </span><span class="nt">access_key_id</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_S3_BACKUP_ACCESS_ID</span>
+<span class="w">      </span><span class="nt">restic_repo_password</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_RESTIC_REPO_PASSWORD</span>
+<span class="w">    </span><span class="nt">argo</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">secret_keys</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">        </span><span class="c1"># name of your home assistant area, users often just use "home"</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"home"</span>
+<span class="w">        </span><span class="c1"># default alpha-2 country code, default is NL which is The Netherlands</span>
+<span class="w">        </span><span class="nt">country</span><span class="p">:</span><span class="w"> </span><span class="s">"NL"</span>
+<span class="w">        </span><span class="c1"># currency code to use for calculating costs, defaults to EUR for euro</span>
+<span class="w">        </span><span class="nt">currency</span><span class="p">:</span><span class="w"> </span><span class="s">"EUR"</span>
+<span class="w">        </span><span class="c1"># other option is "imperial"</span>
+<span class="w">        </span><span class="nt">unit_system</span><span class="p">:</span><span class="w"> </span><span class="s">"metric"</span>
+<span class="w">        </span><span class="c1"># set to F for USA imperialist tempurature</span>
+<span class="w">        </span><span class="nt">temperature_unit</span><span class="p">:</span><span class="w"> </span><span class="s">"C"</span>
+<span class="w">        </span><span class="c1"># latitude of your personal coordinates</span>
+<span class="w">        </span><span class="nt">latitude</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">        </span><span class="c1"># longitude of your personal coordinates</span>
+<span class="w">        </span><span class="nt">longitude</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">        </span><span class="c1"># the elevation of your house?</span>
+<span class="w">        </span><span class="nt">elevation</span><span class="p">:</span><span class="w"> </span><span class="s">"1"</span>
+<span class="w">        </span><span class="c1"># you can delete these if you're not using tolerations/affinity</span>
+<span class="w">        </span><span class="nt">toleration_key</span><span class="p">:</span><span class="w"> </span><span class="s">"reserved"</span>
+<span class="w">        </span><span class="nt">toleration_operator</span><span class="p">:</span><span class="w"> </span><span class="s">"Equal"</span>
+<span class="w">        </span><span class="nt">toleration_value</span><span class="p">:</span><span class="w"> </span><span class="s">"iot"</span>
+<span class="w">        </span><span class="nt">toleration_effect</span><span class="p">:</span><span class="w"> </span><span class="s">"NoSchedule"</span>
+<span class="w">        </span><span class="c1"># these are for node affinity, delete if not in use</span>
+<span class="w">        </span><span class="nt">affinity_key</span><span class="p">:</span><span class="w"> </span><span class="s">"reserved"</span>
+<span class="w">        </span><span class="nt">affinity_value</span><span class="p">:</span><span class="w"> </span><span class="s">"iot"</span>
+<span class="w">        </span><span class="c1"># these are for passing in a USB device such as the conbee II</span>
+<span class="w">        </span><span class="nt">usb_device_path</span><span class="p">:</span><span class="w"> </span><span class="s">"/dev/serial/by-id/usb-device-here"</span>
+<span class="w">        </span><span class="nt">usb_device_mount_path</span><span class="p">:</span><span class="w"> </span><span class="s">"/dev/ttyACM0"</span>
+<span class="w">        </span><span class="nt">usb_device_index</span><span class="p">:</span><span class="w"> </span><span class="s">"1"</span>
+<span class="w">        </span><span class="c1"># these are for passing in a bluetooth device</span>
+<span class="w">        </span><span class="nt">bluetooth_device_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/dbus</span>
+<span class="w">        </span><span class="nt">bluetooth_device_mount_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/run/dbus</span>
+<span class="w">        </span><span class="nt">bluetooth_device_index</span><span class="p">:</span><span class="w"> </span><span class="s">'2'</span>
+<span class="w">      </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/small-hack/argocd-apps</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">home-assistant/toleration_and_affinity/</span>
+<span class="w">      </span><span class="nt">revision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="w">      </span><span class="c1"># kubernetes cluster to install the k8s app into, defaults to Argo CD default</span>
+<span class="w">      </span><span class="nt">cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">home-assistant</span>
+<span class="w">      </span><span class="nt">directory_recursion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">project</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">home-assistant</span>
+<span class="w">        </span><span class="nt">source_repos</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://small-hack.github.io/home-assistant-chart</span>
+<span class="w">        </span><span class="nt">destination</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">namespaces</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argocd</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="without-tolerations-and-node-affinity">Without tolerations and node affinity</h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">home_assistant</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">[link=https://home-assistant.io]Home Assistant[/link] is a home IOT management solution.</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">restore</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">restic_snapshot_ids</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">home_assistant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">      </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># -- owner user's name</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"admin"</span>
+<span class="w">        </span><span class="c1"># -- owner user's username</span>
+<span class="w">        </span><span class="nt">user_name</span><span class="p">:</span><span class="w"> </span><span class="s">"admin"</span>
+<span class="w">        </span><span class="c1"># -- owner user's language, default is english</span>
+<span class="w">        </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="s">"en"</span>
+<span class="w">        </span><span class="nt">password</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_PASSWORD</span>
+<span class="w">    </span><span class="nt">backups</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># cronjob syntax schedule to run home assistant pvc backups</span>
+<span class="w">      </span><span class="nt">pvc_schedule</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45 23 * * *</span>
+<span class="w">      </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># these are for pushing remote backups of your local s3 storage, for speed and cost optimization</span>
+<span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3.eu-central-003.backblazeb2.com</span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-home-assistant-bucket</span>
+<span class="w">        </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-central-003</span>
+<span class="w">        </span><span class="nt">secret_access_key</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_S3_BACKUP_SECRET_KEY</span>
+<span class="w">        </span><span class="nt">access_key_id</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_S3_BACKUP_ACCESS_ID</span>
+<span class="w">      </span><span class="nt">restic_repo_password</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HOME_ASSISTANT_RESTIC_REPO_PASSWORD</span>
+<span class="w">    </span><span class="nt">argo</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">secret_keys</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">        </span><span class="c1"># name of your home assistant area, users often just use "home"</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"home"</span>
+<span class="w">        </span><span class="c1"># default alpha-2 country code, default is NL which is The Netherlands</span>
+<span class="w">        </span><span class="nt">country</span><span class="p">:</span><span class="w"> </span><span class="s">"NL"</span>
+<span class="w">        </span><span class="c1"># currency code to use for calculating costs, defaults to EUR for euro</span>
+<span class="w">        </span><span class="nt">currency</span><span class="p">:</span><span class="w"> </span><span class="s">"EUR"</span>
+<span class="w">        </span><span class="c1"># other option is "imperial"</span>
+<span class="w">        </span><span class="nt">unit_system</span><span class="p">:</span><span class="w"> </span><span class="s">"metric"</span>
+<span class="w">        </span><span class="c1"># set to F for USA imperialist tempurature</span>
+<span class="w">        </span><span class="nt">temperature_unit</span><span class="p">:</span><span class="w"> </span><span class="s">"C"</span>
+<span class="w">        </span><span class="c1"># latitude of your personal coordinates</span>
+<span class="w">        </span><span class="nt">latitude</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">        </span><span class="c1"># longitude of your personal coordinates</span>
+<span class="w">        </span><span class="nt">longitude</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">        </span><span class="c1"># the elevation of your house?</span>
+<span class="w">        </span><span class="nt">elevation</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
+<span class="w">      </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/small-hack/argocd-apps</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">home-assistant/</span>
+<span class="w">      </span><span class="nt">revision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="w">      </span><span class="c1"># kubernetes cluster to install the k8s app into, defaults to Argo CD default</span>
+<span class="w">      </span><span class="nt">cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">home-assistant</span>
+<span class="w">      </span><span class="nt">directory_recursion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">project</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">home-assistant</span>
+<span class="w">        </span><span class="nt">source_repos</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://small-hack.github.io/home-assistant-chart</span>
+<span class="w">        </span><span class="nt">destination</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">namespaces</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argocd</span>
+</code></pre></div></td></tr></table></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "tables", "toc.integrate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

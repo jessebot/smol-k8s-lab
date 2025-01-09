@@ -1,0 +1,2901 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://small-hack.github.io/smol-k8s-lab/k8s_apps/matrix/">
+      
+      
+        <link rel="prev" href="../mastodon/">
+      
+      
+        <link rel="next" href="../metallb/">
+      
+      
+      <link rel="icon" href="../../images/cloud_favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>Matrix - smol-k8s-lab docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="spacechalk" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#required-values" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="smol-k8s-lab docs" class="md-header__button md-logo" aria-label="smol-k8s-lab docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            smol-k8s-lab docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Matrix
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="spacechalk" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/small-hack/smol-k8s-lab" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../installation/" class="md-tabs__link">
+        
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../cli/" class="md-tabs__link">
+        
+  
+    
+  
+  CLI
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tui/create_modify_screens/" class="md-tabs__link">
+          
+  
+    
+  
+  TUI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../config_file/" class="md-tabs__link">
+        
+  
+    
+  
+  Config File
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  Apps
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../k8s_distros/distros/" class="md-tabs__link">
+          
+  
+    
+  
+  Supported Distros
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../k8s_toolbox/toolbox/" class="md-tabs__link">
+          
+  
+    
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../roadmap/" class="md-tabs__link">
+        
+  
+    
+  
+  RoadMap
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="smol-k8s-lab docs" class="md-nav__button md-logo" aria-label="smol-k8s-lab docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    smol-k8s-lab docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/small-hack/smol-k8s-lab" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TUI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            TUI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/create_modify_screens/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create and Modify Clusters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/distro_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8s Distros
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/apps_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8s Apps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/tui_config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/help_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Help
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tui/confirmation_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Confirmation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config_file/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config File
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Apps
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Argo CD
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Argo CD
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../argocd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Argo CD App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../appset-secret-plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appset Secret Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cert_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cert Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnpg_operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CloudNative Postgress Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core_dns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core DNS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    External Secrets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            External Secrets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../external-secrets-operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    External Secrets Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bitwarden_eso_provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bitwarden ESO Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_7" id="__nav_6_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Experimental
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_7">
+            <span class="md-nav__icon md-icon"></span>
+            Experimental
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/cilium/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cilium
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/infisical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infisical
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/kepler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kepler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/kyverno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kyverno
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/kubevirt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubevirt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/longhorn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Longhorn
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/openbao/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Openbao
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/minio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MinIO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental/postgres_operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zalando Postgress Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generic_app/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generic App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generic_device_plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generic Device Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gotosocial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GoToSocial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../home_assistant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home Assistant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ingress_nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ingress Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8tz/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8tz
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8up/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../libretranslate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LibreTranslate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mastodon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mastodon
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Matrix
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Matrix
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#required-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Values
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Required Values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#appset-secret-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Appset secret values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#init-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Init Values
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Init Values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sensitive-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensitive values
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sensitive-values-before-v500" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sensitive values before v5.0.0
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backups
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restores
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-example-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Full Example config
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metallb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MetalLB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nvidia_device_plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NVIDIA Device Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../netmaker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Netmaker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nextcloud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nextcloud
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../peertube/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PeerTube
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prometheus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prometheus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seaweedfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SeaweedFS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../valkey/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Valkey
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../valkey_cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Valkey Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vouch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vouch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zitadel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zitadel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Supported Distros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Supported Distros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/distros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    K3s
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            K3s
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/k3s/k3s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/k3s/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QuickStart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/k3s/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/k3s/sqllite_backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    K3d
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            K3d
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/k3d/k3d/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Kind
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Kind
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/kind/kind/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/kind/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QuickStart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_distros/kind/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_toolbox/toolbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_toolbox/helm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Helm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_toolbox/k9s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K9s
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s_toolbox/kubectl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubectl
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RoadMap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Matrix</h1>
+
+<div><p><a href="https://matrix.org/">Matrix</a> is an open protocol for decentralised, secure communications.</p>
+<p><code>smol-k8s-lab</code> deploys a matrix synapse server, element (a web frontend), and a turn server (voice server).</p>
+<p><a href="../../assets/images/screenshots/matrix.png">
+<img src="../../assets/images/screenshots/matrix.png" alt="screenshot of the Argo CD web interface showing the matrix app of apps in tree view mode, which shows the following children: external secrets appset, postgres appset, matrix PVC appset, s3 provider appset, s3 pvc app set, and matrix web app set.">
+</a></p>
+<details>
+  <summary>Matrix helm chart app in Argo CD</summary>
+
+  <a href="../../assets/images/screenshots/matrix-web-app.png">
+    <img src="../../assets/images/screenshots/matrix-web-app.png" alt="screenshot of the Argo CD web interface showing the matrix web app helm chart app in tree view mode.">
+  </a>
+
+</details>
+
+<details>
+  <summary>Matrix networking view in Argo CD</summary>
+
+  <a href="../../assets/images/screenshots/matrix-networking.png">
+    <img src="../../assets/images/screenshots/matrix-networking.png" alt="screenshot of the Argo CD web interface showing the matrix web app in networking view mode. It shows a cloud on the left flowing into a box that says 192.168.168.168 which branches off into three ingress resources: matrix stack element, matrix stack synapse, and matrix stack synapse federation. The ingress resource for element, branches off into a service of the same name and then a pod of the same name. The synapse and synapse federation ingress resources branch off into two respective services that branch off into one shared pod called matrix stack synapse.">
+  </a>
+
+</details>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We recently added support for <a href="https://github.com/">sliding sync</a> and <a href="https://github.com/">matrix authentication service</a>. To use these, please use <code>matrix/app_of_apps_beta/</code> for <code>apps.matrix.argo.path</code>.</p>
+</div>
+<h2 id="required-values">Required Values</h2>
+<h3 id="appset-secret-values">Appset secret values</h3>
+<p>The main variables you need to worry about when setting up matrix are your <code>hostname</code> variables:</p>
+<ul>
+<li>hostname</li>
+<li>element_hostname</li>
+<li>federation_hostname</li>
+</ul>
+<p><strong>If using Matrix authentication Service and Sliding Sync</strong>:</p>
+<ul>
+<li>auth_hostname</li>
+<li>sliding_sync_hostname</li>
+</ul>
+<p>These are all storage related and you can leave them at the defaults for small servers:</p>
+<p><strong>Signing key storage</strong>:
+- signing_key_pvc_enabled
+- signing_key_storage
+- signing_key_access_mode</p>
+<p><strong>Media storage</strong>:
+- media_pvc_enabled
+- media_storage
+- media_access_mode</p>
+<p><strong>Synapse config storage</strong>:
+- synapse_config_pvc_enabled
+- synapse_config_storage
+- synapse_config_access_mode</p>
+<p><strong>S3 storage</strong>:
+- s3_provider
+- s3_bucket
+- s3_endpoint
+- s3_pvc_capacity
+- s3_region</p>
+<p>You'll also need to provide an admin_email for users to contact someone if something goes wrong.</p>
+<h3 id="init-values">Init Values</h3>
+<p>These are all one time values that you need to provide, related entirely to mail setup:</p>
+<ul>
+<li>smtp_user</li>
+<li>smtp_host
+See below for providing smtp_password without putting it in plain text.</li>
+</ul>
+<p>If you want to federate, you also need to provide:
+- <a href="https://element-hq.github.io/synapse/latest/usage/configuration/config_documentation.html?highlight=trusted#trusted_key_servers">trusted_key_servers</a></p>
+<p>You can provide a list of maps like this for trusted_key_servers:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">server_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">matrix.friend.com</span>
+<span class="w">          </span><span class="nt">verify_keys</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">ed25519:auto</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">abcdefghijklmnopqrstuvwxyzabcdefghijklmopqr</span>
+</code></pre></div></td></tr></table></div>
+<p>The trusted_key_servers option currently displays in the TUI, but is not editable via the TUI yet. See: <a href="https://github.com/small-hack/smol-k8s-lab/issues/269">#269</a></p>
+<h4 id="sensitive-values">Sensitive values</h4>
+<p>Sensitive values can be provided via environment variables using a <code>value_from</code> map on any value under <code>init.values</code> or <code>backups</code>. Example of providing the SMTP password:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">smtp_password</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MATRIX_SMTP_PASSWORD</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="sensitive-values-before-v500">Sensitive values before <code>v5.0.0</code></h4>
+<p><code>smol-k8s-lab</code> did not originally support the <code>value_from</code> map. If you're using a version <em>before <code>v5.0.0</code></em>, to avoid having to provide sensitive values every time you run <code>smol-k8s-lab</code> with matrix enabled, set up the following environment variables:</p>
+<ul>
+<li><code>MATRIX_SMTP_PASSWORD</code></li>
+<li><code>MATRIX_S3_BACKUP_ACCESS_ID</code></li>
+<li><code>MATRIX_S3_BACKUP_SECRET_KEY</code></li>
+<li><code>MATRIX_RESTIC_REPO_PASSWORD</code></li>
+</ul>
+<h2 id="backups">Backups</h2>
+<p>Backups are a new feature in <code>v5.0.0</code> that enable backing up your cluster via restic to a configurable remote S3 bucket. If you have <code>init.enabled</code> set to <code>true</code> and you're using our pre-configured <code>argo.repo</code>, we support both instant backups, and scheduled backups.</p>
+<p>When running a backup of any kind, we will first initiate a <a href="https://cloudnative-pg.io/documentation/1.23/backup/#on-demand-backups">Cloud Native Postgresql backup</a> to your local seaweedfs cluster that we setup for you, and then wait until the last wal archive associated with that backup is complete. After that, we start a k8up backup job to backup all of your important PVCs to your configured s3 bucket.</p>
+<p>To use the backups feature, you'll need to configure the values below.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">backups</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># cronjob syntax schedule to run matrix pvc backups. This example shows PVC Backups</span>
+<span class="w">      </span><span class="c1"># happening at 12:10 AM.</span>
+<span class="w">      </span><span class="nt">pvc_schedule</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10 0 * * *</span>
+<span class="w">      </span><span class="c1"># cronjob syntax (with SECONDS field) for matrix postgres backups</span>
+<span class="w">      </span><span class="c1"># must happen at least 10 minutes before pvc backups, to avoid corruption</span>
+<span class="w">      </span><span class="c1"># due to missing files. This is because the backup shows as completed before</span>
+<span class="w">      </span><span class="c1"># it actually is. This example shows postgres backups happening at exactly midnight</span>
+<span class="w">      </span><span class="nt">postgres_schedule</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0 0 0 * * *</span>
+<span class="w">      </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3.eu-central-003.backblazeb2.com</span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-matrix-backup-bucket</span>
+<span class="w">        </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-central-003</span>
+<span class="w">        </span><span class="nt">secret_access_key</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MATRIX_S3_BACKUP_SECRET_KEY</span>
+<span class="w">        </span><span class="nt">access_key_id</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MATRIX_S3_BACKUP_ACCESS_ID</span>
+<span class="w">      </span><span class="c1"># restic requires this for encrypting your backups in the remote bucket</span>
+<span class="w">      </span><span class="nt">restic_repo_password</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MATRIX_RESTIC_REPO_PASSWORD</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="restores">Restores</h2>
+<p>Restores are a new feature in <code>v5.0.0</code> that enable restoring your postgres cluster and PVCs via restic from a configurable remote S3 bucket. If you have <code>init.enabled</code> set to <code>true</code> and you're using our pre-configured <code>argo.repo</code>, we support restoring both your postgres cluster and PVCs. A restore is a kind of initialization process, so it lives under the <code>init</code> section of the config for your application, in this case, matrix. Here's an example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">restore</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="c1"># this must be set to true to restore your postgres cluster</span>
+<span class="w">        </span><span class="nt">cnpg_restore</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="c1"># all of these default to latest, but you can set them to any restic snapshot ID</span>
+<span class="w">        </span><span class="nt">restic_snapshot_ids</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">seaweedfs_volume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">          </span><span class="nt">seaweedfs_filer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">          </span><span class="nt">matrix_media</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">          </span><span class="nt">matrix_synapse_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">          </span><span class="nt">matrix_signing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+</code></pre></div></td></tr></table></div>
+<p>The restore process will put your secrets into place, then restore your seaweedfs cluster first, followed by your postgresql cluster, followed by your matrix your PVCs, and then it will install your matrix argocd app as normal.</p>
+<h2 id="full-example-config">Full Example config</h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">apps</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">matrix</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">[link=https://matrix.org/]Matrix[/link] is an open protocol for decentralised, secure communications.</span>
+<span class="w">      </span><span class="no">This deploys a matrix synapse server, element (web frontend), and turn server (voice)</span>
+
+<span class="w">      </span><span class="no">smol-k8s-lab supports initialization by creating initial secrets for your:</span>
+<span class="w">        </span><span class="no">- matrix, element, and federation hostnames,</span>
+<span class="w">        </span><span class="no">- credentials for: postgresql, admin user, S3 storage, and SMTP</span>
+
+<span class="w">      </span><span class="no">smol-k8s-lab also sets up an OIDC application via Zitadel.</span>
+
+<span class="w">      </span><span class="no">To provide sensitive values via environment variables to smol-k8s-lab use a value_from map in the config.yaml</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">init</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">restore</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">        </span><span class="nt">cnpg_restore</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">restic_snapshot_ids</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">seaweedfs_volume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">          </span><span class="nt">seaweedfs_filer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">          </span><span class="nt">matrix_media</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">          </span><span class="nt">matrix_synapse_config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">          </span><span class="nt">matrix_signing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">latest</span>
+<span class="w">      </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">smtp_user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">change me to enable mail</span>
+<span class="w">        </span><span class="nt">smtp_host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">enable.mail</span>
+<span class="w">        </span><span class="nt">smtp_password</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MATRIX_SMTP_PASSWORD</span>
+<span class="w">    </span><span class="nt">backups</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># cronjob syntax schedule to run matrix pvc backups</span>
+<span class="w">      </span><span class="nt">pvc_schedule</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10 0 * * *</span>
+<span class="w">      </span><span class="c1"># cronjob syntax (with SECONDS field) for matrix postgres backups</span>
+<span class="w">      </span><span class="c1"># must happen at least 10 minutes before pvc backups, to avoid corruption</span>
+<span class="w">      </span><span class="c1"># due to missing files. This is because the backup shows as completed before</span>
+<span class="w">      </span><span class="c1"># it actually is</span>
+<span class="w">      </span><span class="nt">postgres_schedule</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0 0 0 * * *</span>
+<span class="w">      </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3.eu-central-003.backblazeb2.com</span>
+<span class="w">        </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-matrix-backup-bucket</span>
+<span class="w">        </span><span class="nt">region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-central-003</span>
+<span class="w">        </span><span class="nt">secret_access_key</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MATRIX_S3_BACKUP_SECRET_KEY</span>
+<span class="w">        </span><span class="nt">access_key_id</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MATRIX_S3_BACKUP_ACCESS_ID</span>
+<span class="w">      </span><span class="nt">restic_repo_password</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">value_from</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MATRIX_RESTIC_REPO_PASSWORD</span>
+<span class="w">    </span><span class="nt">argo</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># secrets keys to make available to Argo CD ApplicationSets</span>
+<span class="w">      </span><span class="nt">secret_keys</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># hostname of the synapse matrix server</span>
+<span class="w">        </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="s">"chat.beepboopfordogsnoots.city"</span>
+<span class="w">        </span><span class="c1"># the hostname of the element web interface</span>
+<span class="w">        </span><span class="nt">element_hostname</span><span class="p">:</span><span class="w"> </span><span class="s">'element.beepboopfordogsnoots.city'</span>
+<span class="w">        </span><span class="c1"># hostname for federation, that others can see you on the fediverse</span>
+<span class="w">        </span><span class="nt">federation_hostname</span><span class="p">:</span><span class="w"> </span><span class="s">'chat-federation.beepboopfordogsnoots.city'</span>
+<span class="w">        </span><span class="c1"># email for of the admin user</span>
+<span class="w">        </span><span class="nt">admin_email</span><span class="p">:</span><span class="w"> </span><span class="s">'notadog@coolcats.com'</span>
+<span class="w">        </span><span class="c1"># list of admin users for bridges, the hostnames will be appended automatically</span>
+<span class="w">        </span><span class="nt">admin_users</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notadog</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">realcat</span>
+<span class="w">        </span><span class="c1"># enable signing key backups</span>
+<span class="w">        </span><span class="nt">signing_key_pvc_enabled</span><span class="p">:</span><span class="w"> </span><span class="s">'true'</span>
+<span class="w">        </span><span class="c1"># size of signing key pvc storage</span>
+<span class="w">        </span><span class="nt">signing_key_storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1Mi</span>
+<span class="w">        </span><span class="nt">signing_key_access_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
+<span class="w">        </span><span class="c1"># enable persistent volume claim for matrix media storage</span>
+<span class="w">        </span><span class="nt">media_pvc_enabled</span><span class="p">:</span><span class="w"> </span><span class="s">'true'</span>
+<span class="w">        </span><span class="c1"># size of media pvc storage</span>
+<span class="w">        </span><span class="nt">media_storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20Gi</span>
+<span class="w">        </span><span class="nt">media_access_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
+<span class="w">        </span><span class="c1"># enable persistent volume claim for matrix synapse config storage</span>
+<span class="w">        </span><span class="nt">synapse_config_pvc_enabled</span><span class="p">:</span><span class="w"> </span><span class="s">'true'</span>
+<span class="w">        </span><span class="c1"># size of synapse config pvc storage</span>
+<span class="w">        </span><span class="nt">synapse_config_storage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2Mi</span>
+<span class="w">        </span><span class="nt">synapse_config_access_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteOnce</span>
+<span class="w">        </span><span class="c1"># choose S3 as the local primary object store from either: seaweedfs, or minio</span>
+<span class="w">        </span><span class="c1"># SeaweedFS - deploy SeaweedFS filer/s3 gateway</span>
+<span class="w">        </span><span class="c1"># MinIO     - deploy MinIO vanilla helm chart</span>
+<span class="w">        </span><span class="nt">s3_provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">seaweedfs</span>
+<span class="w">        </span><span class="c1"># local s3 provider bucket name</span>
+<span class="w">        </span><span class="nt">s3_bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">matrix</span>
+<span class="w">        </span><span class="c1"># the endpoint you'd like to use for your minio or SeaweedFS instance</span>
+<span class="w">        </span><span class="nt">s3_endpoint</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">matrix-s3.social-media-for-dogs.com</span>
+<span class="w">        </span><span class="c1"># how large the backing pvc's capacity should be for minio or seaweedfs</span>
+<span class="w">        </span><span class="nt">s3_pvc_capacity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100Gi</span>
+<span class="w">        </span><span class="nt">s3_region</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">eu-west-1</span>
+<span class="w">      </span><span class="c1"># git repo to install the Argo CD app from</span>
+<span class="w">      </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="s">"https://github.com/small-hack/argocd-apps"</span>
+<span class="w">      </span><span class="c1"># path in the argo repo to point to. Trailing slash very important!</span>
+<span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s">"matrix/app_of_apps/"</span>
+<span class="w">      </span><span class="c1"># either the branch or tag to point at in the argo repo above</span>
+<span class="w">      </span><span class="nt">revision</span><span class="p">:</span><span class="w"> </span><span class="s">"main"</span>
+<span class="w">      </span><span class="c1"># kubernetes cluster to install the k8s app into, defaults to Argo CD default</span>
+<span class="w">      </span><span class="nt">cluster</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://kubernetes.default.svc</span>
+<span class="w">      </span><span class="c1"># namespace to install the k8s app in</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s">"matrix"</span>
+<span class="w">      </span><span class="c1"># recurse directories in the git repo</span>
+<span class="w">      </span><span class="nt">directory_recursion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="c1"># source repos for Argo CD App Project (in addition to argo.repo)</span>
+<span class="w">      </span><span class="nt">project</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">matrix</span>
+<span class="w">        </span><span class="nt">source_repos</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://small-hack.github.io/cloudnative-pg-cluster-chart</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://small-hack.github.io/matrix-chart</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://operator.min.io/</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://seaweedfs.github.io/seaweedfs/helm</span>
+<span class="w">        </span><span class="nt">destination</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">namespaces</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argocd</span>
+</code></pre></div></td></tr></table></div></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "tables", "toc.integrate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2831 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://small-hack.github.io/smol-k8s-lab/">
+      
+      
+      
+        <link rel="next" href="installation/">
+      
+      
+      <link rel="icon" href="images/cloud_favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.49">
+    
+    
+      
+        <title>smol-k8s-lab docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/fonts.css">
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="spacechalk" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#about" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="smol-k8s-lab docs" class="md-header__button md-logo" aria-label="smol-k8s-lab docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            smol-k8s-lab docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="spacechalk" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/small-hack/smol-k8s-lab" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="installation/" class="md-tabs__link">
+        
+  
+    
+  
+  Installation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="cli/" class="md-tabs__link">
+        
+  
+    
+  
+  CLI
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="tui/create_modify_screens/" class="md-tabs__link">
+          
+  
+    
+  
+  TUI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="config_file/" class="md-tabs__link">
+        
+  
+    
+  
+  Config File
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="k8s_apps/" class="md-tabs__link">
+          
+  
+    
+  
+  Apps
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="k8s_distros/distros/" class="md-tabs__link">
+          
+  
+    
+  
+  Supported Distros
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="k8s_toolbox/toolbox/" class="md-tabs__link">
+          
+  
+    
+  
+  Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="roadmap/" class="md-tabs__link">
+        
+  
+    
+  
+  RoadMap
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="smol-k8s-lab docs" class="md-nav__button md-logo" aria-label="smol-k8s-lab docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
+
+    </a>
+    smol-k8s-lab docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/small-hack/smol-k8s-lab" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#about" class="md-nav__link">
+    <span class="md-ellipsis">
+      About
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="About">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#under-the-hood" class="md-nav__link">
+    <span class="md-ellipsis">
+      Under the hood
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Under the hood">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supported-k8s-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported k8s distributions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-installed-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default Installed Applications
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optionally-installed-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optionally Installed Applications
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core libraries
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#development-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development libraries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#things-we-dont-handle-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Things we don't handle (yet)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="installation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    TUI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            TUI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tui/create_modify_screens/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Create and Modify Clusters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tui/distro_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8s Distros
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tui/apps_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8s Apps
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tui/tui_config/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tui/help_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Help
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tui/confirmation_screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Confirmation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="config_file/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Config File
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="k8s_apps/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Apps
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Apps
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Argo CD
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Argo CD
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/argocd/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Argo CD App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/appset-secret-plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Appset Secret Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/cert_manager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cert Manager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/cnpg_operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CloudNative Postgress Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/core_dns/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core DNS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    External Secrets
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            External Secrets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/external-secrets-operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    External Secrets Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/bitwarden_eso_provider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bitwarden ESO Provider
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_7" id="__nav_6_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Experimental
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_7">
+            <span class="md-nav__icon md-icon"></span>
+            Experimental
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/experimental/cilium/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cilium
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/experimental/infisical/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infisical
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/experimental/kepler/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kepler
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/experimental/kyverno/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kyverno
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/experimental/kubevirt/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubevirt
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/experimental/longhorn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Longhorn
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/experimental/openbao/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Openbao
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/experimental/minio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MinIO
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/experimental/postgres_operator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zalando Postgress Operator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/generic_app/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generic App
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/generic_device_plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Generic Device Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/gotosocial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GoToSocial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/home_assistant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home Assistant
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/ingress_nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ingress Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/k8tz/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8tz
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/k8up/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K8up
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/libretranslate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LibreTranslate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/mastodon/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mastodon
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/matrix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matrix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/metallb/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MetalLB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/nvidia_device_plugin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NVIDIA Device Plugin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/netmaker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Netmaker
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/nextcloud/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nextcloud
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/peertube/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PeerTube
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/prometheus/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Prometheus
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/seaweedfs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SeaweedFS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/valkey/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Valkey
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/valkey_cluster/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Valkey Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/vouch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Vouch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_apps/zitadel/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zitadel
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Supported Distros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Supported Distros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_distros/distros/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    K3s
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            K3s
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_distros/k3s/k3s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_distros/k3s/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QuickStart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_distros/k3s/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_distros/k3s/sqllite_backend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Extras
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    K3d
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            K3d
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_distros/k3d/k3d/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Kind
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            Kind
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_distros/kind/kind/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_distros/kind/quickstart/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QuickStart
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_distros/kind/tutorial/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_toolbox/toolbox/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_toolbox/helm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Helm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_toolbox/k9s/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    K9s
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="k8s_toolbox/kubectl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kubectl
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="roadmap/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RoadMap
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div><h1 align="center">
+🧸 Smol K8s Lab
+</h1>
+
+<p>Leverage Argo CD and slim Kubernetes distributions, like K3s, to create production-like environments via a declarative workflow. Batteries and 🦑 included.</p>
+<h2 id="about">About</h2>
+<p><code>smol-k8s-lab</code>'s declarative workflow, CLI, and TUI enable rapid iteration in production-like environments with minimal costs for failure. This makes it ideal for proof-of-concepts, prototyping, and benchmarking Kubernetes applications and distributions. It's also great for home labs, with some common FOSS apps such as Home Assistant, Nextcloud, Matrix, and more!</p>
+<p>By default, <code>smol-k8s-lab</code> deploys <a href="https://argo-cd.readthedocs.io/en/latest/">Argo CD</a> + <a href="https://github.com/small-hack/argocd-appset-secret-plugin/">Argo CD Appset Secret Plugin</a> which enables Argo CD to securely manage your lab via files in <a href="https://github.com/small-hack/argocd-apps">open source Git repos</a>. Additionally, a customized nord-like dark-theme is provided for Argo CD's incredibly useful web-interface.</p>
+<p>Consider viewing our very long walk through if you like video walk-throughs (which is a little out of date, but we intend to update it as soon as possible to include new features):</p>
+<p align="center">
+<iframe width="720" height="480" src="https://www.youtube.com/embed/UdOQM9n5hyU?si=5dDCf2J2Oczhdej3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</p>
+
+<p>Here's the <a href="https://youtu.be/2E9DVJpv440?feature=shared">same video with captions</a>.</p>
+<h3 id="features">Features</h3>
+<ul>
+<li>Deploys <a href="https://github.com/argoproj/argo-cd">Argo CD</a> by default, so you can manage your entire lab using files in <a href="https://github.com/small-hack/argocd-apps">open source git repos</a></li>
+<li>Argo CD ships with a dashboard with a custom theme 💙</li>
+<li>Specializes in using Bitwarden (though not required) to store sensitive values both in your Bitwwarden vault, and on your cluster as Secrets.</li>
+<li>Manages all your authentication needs centrally using <a href="https://github.com/zitadel/zitadel-charts/tree/main">Zitadel</a> and <a href="https://github.com/small-hack/vouch-helm-chart">Vouch</a> 💪</li>
+<li>Supports initialization on a <a href="https://small-hack.github.io/smol-k8s-lab/k8s_apps/argocd/">range of common self-hosted apps</a> 📱</li>
+<li>featured initialized apps such as <a href="https://github.com/zitadel/zitadel-charts/tree/main">Zitadel</a>, <a href="https://small-hack.github.io/smol-k8s-lab/k8s_apps/nextcloud/">Nextcloud</a>, <a href="https://small-hack.github.io/smol-k8s-lab/k8s_apps/matrix/">Matrix</a>, and <a href="https://small-hack.github.io/smol-k8s-lab/k8s_apps/home_assistant/">Home Assistant</a> include [b]backups and restores[/b]!</li>
+<li>Lots o' <a href="https://small-hack.github.io/smol-k8s-lab">docs</a></li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<p>Please see our <a href="https://small-hack.github.io/smol-k8s-lab/installation">Getting Started guide</a>.</p>
+<h1 id="under-the-hood">Under the hood</h1>
+<p>Note: this project is not officially affiliated with any of the below tooling or applications. We just love open source projects 💙</p>
+<h2 id="supported-k8s-distributions">Supported k8s distributions</h2>
+<p>We always install the latest version of Kubernetes that is available from the distro's startup script.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Distro</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://k3s.io/"><img src="assets/images/icons/k3s_icon.ico" width="26"></a> <br> <a href="https://k3s.io/">k3s</a></td>
+<td style="text-align: left;">The certified Kubernetes distribution built for IoT &amp; Edge computing</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://k3d.io/"><img src="assets/images/icons/k3d.png" width="26"></a> <br> <a href="https://k3d.io/">k3d</a></td>
+<td style="text-align: left;">K3d is k3s in Docker 🐳. <br> In beta!</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://kind.sigs.k8s.io/"><img src="assets/images/icons/kind_icon.png" width="32"></a> <br> <a href="https://kind.sigs.k8s.io/">KinD</a></td>
+<td style="text-align: left;">kind is a tool for running local Kubernetes clusters using Docker container “nodes”. kind was primarily designed for testing Kubernetes itself.</td>
+</tr>
+</tbody>
+</table>
+<p>We tend to test first on k3s first, then the other distros.</p>
+<h2 id="default-installed-applications">Default Installed Applications</h2>
+<p>Version is the helm chart version, or manifest version. See the <a href="/k8s_apps/argocd">Default Applications</a> tab for more info on each application.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Application</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: center;">Initialization Supported</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://github.io/metallb/metallb" title="metallb"><img src="assets/images/icons/metallb_icon.png" width="32px" alt="metallb logo, blue arrow pointing up, with small line on one leg of arrow to show balance"></a> <br> <a href="https://github.io/metallb/metallb" title="metallb">metallb</a></td>
+<td style="text-align: left;">Loadbalancer and IP Address pool manager for metal</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.io/kubernetes/ingress-nginx"><img src="assets/images/icons/nginx.ico" width="32px" alt="nginx logo, white letter N with green background"></a> <br> <a href="https://github.io/kubernetes/ingress-nginx">ingress-nginx</a></td>
+<td style="text-align: left;">The ingress-nginx controller allows access to the cluster remotely, needed for web traffic</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://cert-manager.io/docs/"><img src="assets/images/icons/cert-manager_icon.png" width="32px" alt="cert manager logo"></a> <br> <a href="https://cert-manager.io/docs/">cert-manager</a></td>
+<td style="text-align: left;">For SSL/TLS certificates</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://argo-cd.readthedocs.io/en/latest/"><img src="assets/images/icons/argo_icon.png" width="32" alt="argo CD logo, an organer squid wearing a fishbowl helmet"></a> <br> <a href="https://argo-cd.readthedocs.io/en/latest/">Argo CD</a></td>
+<td style="text-align: left;">Gitops - Continuous Deployment</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/small-hack/argocd-appset-secret-plugin/"><img src="assets/images/icons/argo_icon.png" width="32" alt="argo CD logo, an organer squid wearing a fishbowl helmet"></a> <br> <a href="https://github.com/small-hack/argocd-appset-secret-plugin/">Argo CD Appset Secret Plugin</a></td>
+<td style="text-align: left;">Gitops - Continuous Deployment</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://external-secrets.io"><img src="assets/images/icons/eso_icon.png" width="32" alt="ESO logo, outline of robot with astricks in a screen in it's belly"></a> <br> <a href="https://external-secrets.io">ESO</a></td>
+<td style="text-align: left;">external-secrets-operator integrates external secret management systems like Bitwarden or GitLab</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/small-hack/bitwarden-eso-provider"><img src="assets/images/icons/eso_icon.png" width="32" alt="ESO logo, again"></a> <br> <a href="https://github.com/small-hack/bitwarden-eso-provider">Bitwarden ESO Provider</a></td>
+<td style="text-align: left;">Bitwarden external-secrets-operator provider</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/zitadel/zitadel-charts/tree/main"><img src="assets/images/icons/zitadel.png" width="32" alt="Zitadel logo, an orange arrow pointing left"></a> <br> <a href="https://github.com/zitadel/zitadel-charts/tree/main">ZITADEL</a></td>
+<td style="text-align: left;">An identity provider and OIDC provider to provide SSO</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/small-hack/vouch-helm-chart"><img src="assets/images/icons/vouch.png" width="32" alt="Vouch logo, the letter V in rainbow "></a> <br> <a href="https://github.com/small-hack/vouch-helm-chart">Vouch</a></td>
+<td style="text-align: left;">Vouch proxy allows you to secure web pages that lack authentication e.g. prometheus</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/small-hack/argocd-apps/tree/main/prometheus"><img src="assets/images/icons/prometheus.png" width="32" alt="Prometheus logo, a torch"></a> <br> <a href="https://github.com/small-hack/argocd-apps/tree/main/prometheus">Prometheus Stack</a></td>
+<td style="text-align: left;">Prometheus monitoring and logging stack using <a href="https://grafana.com/oss/loki/">loki</a>/<a href="https://grafana.com/docs/loki/latest/send-data/promtail/">promtail</a>, <a href="https://prometheus.io/docs/alerting/latest/alertmanager/">alert manager</a>, and <a href="https://grafana.com/">grafana</a></td>
+<td style="text-align: center;">✅</td>
+</tr>
+</tbody>
+</table>
+<p>Minor Notes:</p>
+<blockquote>
+<p>All Default Applications can be disabled through your <code>~/.config/smol-k8s-lab/config.yaml</code> file, <strong>except</strong> Argo CD. You can still choose not to install it, but if not installed, smol-k8s-lab will <i>only</i> install: metallb, nginx-ingress, and cert-manager</p>
+</blockquote>
+<h2 id="optionally-installed-applications">Optionally Installed Applications</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Application/Tool</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: center;">Initialization Supported</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/cilium/cilium/tree/main/install/kubernetes/cilium"><img src="assets/images/icons/cilium.png" width="32" alt="cilium logo"></a> <br> <a href="https://github.com/cilium/cilium/tree/main/install/kubernetes/cilium">Cilium</a><sup>demo</sup></td>
+<td style="text-align: left;">Kubernetes netflow visualizer and policy editor</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://www.home-assistant.io/"><img src="assets/images/icons/home_assistant_icon.png" width="32" alt="home assistant logo, which is a small blue house with three white tracers inside of it, making it appear as though the home is a circuit board"></a> <br> <a href="https://www.home-assistant.io/">Home Assistant</a></td>
+<td style="text-align: left;">Home Assistant, a self hosted, at home IoT management solution.</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/kyverno/kyverno/"><img src="assets/images/icons/kyverno_icon.png" width="32" alt="kyvero logo"></a> <br> <a href="https://github.com/kyverno/kyverno/">Kyverno</a><sup>alpha</sup></td>
+<td style="text-align: left;">Kubernetes native policy management to enforce policies on k8s resources</td>
+<td style="text-align: center;">❌</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/sustainable-computing-io/kepler-helm-chart/tree/main/chart/kepler"><img src="assets/images/icons/kepler.png" width="32" alt="kepler logo"></a> <br> <a href="https://github.com/sustainable-computing-io/kepler-helm-chart/tree/main/chart/kepler">kepler</a></td>
+<td style="text-align: left;">Kepler (Kubernetes Efficient Power Level Exporter) uses eBPF to probe energy-related system stats and exports them as Prometheus metrics.</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://k8up.io"><img src="assets/images/icons/k8up.png" width="32" alt="k8up logo, a minimalist logo of a small blue hill with line starting the right going into the hill"></a> <br> <a href="https://k8up.io">k8up</a></td>
+<td style="text-align: left;">Backups operator using <a href="https://restic.readthedocs.io/en/stable/">restic</a> to backup to s3 endpoints</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/small-hack/argocd-apps/tree/main/alpha/k8tz"><img src="assets/images/icons/k8tz.png" width="32" alt="k8tz logo, the k8s logo but with a watch in the center instead of the ship wheel"></a> <br> <a href="https://github.com/small-hack/argocd-apps/tree/main/alpha/k8tz">k8tz</a></td>
+<td style="text-align: left;">Timezone environment variable injector for pods and cronjobs</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://netmaker.io"><img src="assets/images/icons/netmaker-icon.png" width="32" alt="netmaker logo, a purple letter N"></a> <br> <a href="https://netmaker.io">Netmaker</a></td>
+<td style="text-align: left;">Netmaker is a self hosted vpn management tool that uses Wiregaurd®</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/nextcloud/helm"><img src="assets/images/icons/nextcloud.png" width="32" alt="nextcloud logo, 3 white circles touching eachother on a blue background"></a> <br> <a href="https://github.com/nextcloud/helm">Nextcloud</a></td>
+<td style="text-align: left;">Nextcloud is a self hosted file server</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://joinmastodon.org/"><img src="assets/images/icons/mastodon.png" width="32" alt="Mastodon logo, a white M in a purple chat bubble"></a> <br> <a href="https://joinmastodon.org/">Mastodon</a></td>
+<td style="text-align: left;">Mastodon is a self hosted federated social media network</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://matrix.org/"><img src="assets/images/icons/matrix.png" width="32" alt="Matrix logo"></a> <br> <a href="https://matrix.org/">matrix</a></td>
+<td style="text-align: left;">Matrix is a self hosted chat platform</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://min.io/"><img src="assets/images/icons/minio.png" width="32" alt="minio logo, a minimalist drawing in red of a crane"></a> <br> <a href="https://min.io/">minio</a></td>
+<td style="text-align: left;">Self hosted S3 Object Store operator</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://github.com/seaweedfs/seaweedfs"><img src="assets/images/icons/seaweedfs.png" width="32" alt="seaweedfs logo, "></a> <br> <a href="https://github.com/seaweedfs/seaweedfs">seaweedfs</a></td>
+<td style="text-align: left;">Self hosted S3 Object Store</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td style="text-align: center;"><a href="https://k9scli.io/topics/install/"><img src="assets/images/icons/k9s_icon.png" alt="k9s logo, outline of dog with ship wheels for eyes" width="32px"></a><a href="https://k9scli.io/topics/install/">k9s</a></td>
+<td style="text-align: left;">Terminal based dashboard for kubernetes</td>
+<td style="text-align: center;">✅</td>
+</tr>
+</tbody>
+</table>
+<h1 id="status">Status</h1>
+<p><code>smol-k8s-lab</code> is actively maintained, and in a semi-stable state. We still may introduce features that, upon major version releases, can introduce breaking changes, but we'll always include how to update your config files in the merged pull request description, and that will be linked in the release notes.</p>
+<h2 id="development">Development</h2>
+<p><code>smol-k8s-lab</code> is written in Python 3.12 and built and published using <a href="https://python-poetry.org/">Poetry</a>. You can check out the <a href="https://github.com/small-hack/smol-k8s-lab/blob/main/pyproject.toml"><code>pyproject.toml</code></a> for the versions of each library we install below.</p>
+<h3 id="core-libraries">Core libraries</h3>
+<p>These are installed anytime you install <code>smol-k8s-lab</code> as an end user:</p>
+<table>
+<thead>
+<tr>
+<th>Default Library</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://pypi.org/project/bcrypt/">bcrypt</a></td>
+<td>to pass a password to argocd and automatically update your Bitwarden</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/click/">click</a></td>
+<td>handles arguments for the CLI</td>
+</tr>
+<tr>
+<td><a href="https://github.com/kubernetes-client/python">kubernetes</a></td>
+<td>for using the partially functional python sdk for kubernetes</td>
+</tr>
+<tr>
+<td><a href="https://min.io/">minio</a></td>
+<td>for connecting to s3 and saving credentials</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/pyfiglet/">pyfiglet</a></td>
+<td>uses figlet to print the ascii text banner in the tui</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/PyJWT/">pyjwt</a></td>
+<td>used for processing tokens from zitadel</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/PyYAML">pyyaml</a></td>
+<td>this is actively being removed in favor of ruamel.yaml</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Textualize/richP">rich</a></td>
+<td>makes all the pretty formatted text in logs and <code>--help</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/Textualize/textual">textual</a></td>
+<td>this is the framework used for writing the TUI</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/ruamel.yaml/">ruamel.yaml</a></td>
+<td>to handle the k8s yamls and configs while maintaining comments)</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/xdg-base-dirs/">xdg-base-dirs</a></td>
+<td>lets us use default config and cache directories for storage  accross major OSes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="development-libraries">Development libraries</h3>
+<p>These are installed anytime you want to develop smol-k8s-lab:</p>
+<table>
+<thead>
+<tr>
+<th>Development Library</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://squidfunk.github.io/mkdocs-material/">mkdocs-material</a></td>
+<td>for the docs site</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/mkdocs-video/">mkdocs-video</a></td>
+<td>for videos on the docs site</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/deptry/">deptry</a></td>
+<td>for purging unused libraries</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/textual/">textual-dev</a></td>
+<td>for consoling textual</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/pytest-textual-snapshot/">pytest-textual-snapshot</a></td>
+<td>for taking screenshots with textual</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/poethepoet/">poethepoet</a></td>
+<td>for running special tasks during poetry build</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/coqui-tts/">coqui-tts</a></td>
+<td>for generating text to speech audio files</td>
+</tr>
+<tr>
+<td><a href="https://pypi.org/project/pydub/">pydub</a></td>
+<td>for converting audio files from wav to mp3, requires ffmpeg</td>
+</tr>
+<tr>
+<td><a href="https://www.pygame.org/">pygame</a></td>
+<td>for playing audio accross different OSes, requires alsa on linux</td>
+</tr>
+</tbody>
+</table>
+<p>We also utilize the <a href="https://bitwarden.com/help/cli/">Bitwarden cli</a>, for a password manager so you never have to see/know your Argo CD password.</p>
+<h2 id="things-we-dont-handle-yet">Things we don't handle (yet)</h2>
+<ol>
+<li>
+<p>Port Forwarding</p>
+<p>If you want to access an app outside of port forwarding to test, you'll need to make sure your app's ingress is setup correctly and then you'll need to setup your router to port forward 80-&gt;80 and 443-&gt;443 for your WAN. Then, setup DNS for your domain if you want the wider internet to access this remotely.</p>
+</li>
+<li>
+<p>High-Availability</p>
+<p>HA cluster design with K3s requires etcd or another external key-value store such as PostgreSQL. Smol-K8s-Lab deploys k3s in a single-node configuration using SQLite which can be used for multi-node configurations but is not suitable for high-availability.</p>
+</li>
+</ol>
+<!-- k8s apps link references -->
+<!-- k8s distro link references -->
+<!-- k8s optional apps link references -->
+<!-- k8s tooling reference -->
+<!-- smol-k8s-lab dependency lib link references --></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.path", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "tables", "toc.integrate", "content.code.copy"], "search": "assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.88dd0f4e.min.js"></script>
+      
+        <script src="javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
